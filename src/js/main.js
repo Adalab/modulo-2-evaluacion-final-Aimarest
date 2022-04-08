@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 const serverUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=";
 const title = document.querySelector(".js-title");
 const form = document.querySelector(".js-form");
@@ -8,19 +8,10 @@ const searchInput = document.querySelector(".js-searchInput");
 const drinkList = document.querySelector(".js-drinkList");
 let allDrinks = [];
 
-fetch(serverUrl)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    allDrinks = data.drinks;
-    console.log(allDrinks);
-    renderDrinks();
-  });
-
 //Funciones:
+
 function renderDrinks() {
-  let html = '';
+  let html = "";
   for (const drink of allDrinks) {
     html += `<li class ="drink js-drink" id=${drink.idDrink}>`;
     html += `<h2>${drink.strDrink}</h2>`;
@@ -29,3 +20,18 @@ function renderDrinks() {
   }
   drinkList.innerHTML = html;
 }
+function filterDrinks() {
+  const wantedDrink = searchInput.value;
+  fetch(`${serverUrl} ${wantedDrink}`)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      allDrinks = data.drinks;
+      console.log(data);
+    });
+  renderDrinks();
+}
+//Eventos:
+
+searchButton.addEventListener("click", filterDrinks);
