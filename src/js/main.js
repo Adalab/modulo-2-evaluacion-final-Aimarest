@@ -21,17 +21,24 @@ function renderDrinks() {
   drinkList.innerHTML = html;
 }
 function filterDrinks() {
-  const wantedDrink = searchInput.value;
-  fetch(`${serverUrl} ${wantedDrink}`)
+  let wantedDrink = searchInput.value;
+  fetch(`${serverUrl}${wantedDrink}`)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
       allDrinks = data.drinks;
       console.log(data);
+      renderDrinks();
     });
-  renderDrinks();
+}
+
+function resetFilter(event) {
+  event.preventDefault();
+  drinkList.innerHTML = "";
+  searchInput.value = "";
 }
 //Eventos:
 
 searchButton.addEventListener("click", filterDrinks);
+resetButton.addEventListener("click", resetFilter);
