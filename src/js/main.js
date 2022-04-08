@@ -7,6 +7,7 @@ const resetButton = document.querySelector(".js-reset");
 const searchInput = document.querySelector(".js-searchInput");
 const drinkList = document.querySelector(".js-drinkList");
 let allDrinks = [];
+let favourites = [];
 
 //Funciones:
 
@@ -30,6 +31,7 @@ function filterDrinks() {
       allDrinks = data.drinks;
       console.log(data);
       renderDrinks();
+      drinkSelected();
     });
 }
 
@@ -37,6 +39,15 @@ function resetFilter(event) {
   event.preventDefault();
   drinkList.innerHTML = "";
   searchInput.value = "";
+}
+function favouriteDrick(event) {
+  console.log("holis");
+}
+function drinkSelected() {
+  for (const drink of allDrinks) {
+    const currentDrink = document.getElementById(drink.idDrink)
+    currentDrink.addEventListener("click", favouriteDrick);
+  }
 }
 //Eventos:
 
