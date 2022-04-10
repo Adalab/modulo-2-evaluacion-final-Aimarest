@@ -11,7 +11,22 @@ function handleClickSearch() {
     .then((response) => response.json())
     .then((data) => {
       allDrinks = data.drinks;
-      console.log(allDrinks);
+      //Creo un array que contenga los objetos solo con las propiedades que necesito(nombre,imagen,id)
+      const wantedDrinks = allDrinks.map((drink) => {
+        const wDrinks = {
+          name: drink.strDrink,
+          id: drink.idDrink,
+          image: drink.strDrinkThumb,
+        };
+        return wDrinks;
+      });
+      console.log(wantedDrinks);
+      paintDrinks(wantedDrinks, drinksList);
     });
 }
+function paintDrinks(list, listDOM) {
+  console.log("holis");
+  // listDOM.innerHTML = ;
+}
+
 buttonSearch.addEventListener("click", handleClickSearch);
