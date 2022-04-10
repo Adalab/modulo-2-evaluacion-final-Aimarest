@@ -49,8 +49,10 @@ function handleClickSearch() {
     let html = "";
     for (const li of list) {
       html += `<li class="drink js-drink" id=${li.id}>`;
+      html += `<div class="drink__container">`;
       html += `<h2 class= "drink__title"> ${li.name}</h2>`;
       html += `<img class= "drink__image" src="${li.image}"/>`;
+      html += `</div>`;
       html += `</li>`;
     }
     listDOM.innerHTML = html;
