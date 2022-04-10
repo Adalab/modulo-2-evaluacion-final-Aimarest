@@ -25,8 +25,14 @@ function handleClickSearch() {
     });
 }
 function paintDrinks(list, listDOM) {
-  console.log("holis");
-  // listDOM.innerHTML = ;
+  let html = "";
+  for (const li of list) {
+    html += `<li class="drink js-drink" id=${li.id}>`;
+    html += `<h2 class= drink-title> ${li.name}</h2>`;
+    html += `<img src="${li.image}"/>`;
+    html += `</li>`;
+  }
+  listDOM.innerHTML = html;
 }
 
 buttonSearch.addEventListener("click", handleClickSearch);
