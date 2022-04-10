@@ -4,6 +4,7 @@ const inputSearch = document.querySelector(".js-searchInput");
 const buttonSearch = document.querySelector(".js-button");
 const drinksList = document.querySelector(".js-drinkList");
 const urlApi = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=";
+const favourites = document.querySelector(".js-favourites");
 
 //Función manejadora del evento 'click' en el botón de buscar bebidas.
 
@@ -25,6 +26,7 @@ function handleClickSearch() {
       });
       console.log(wantedDrinks);
       paintDrinks(wantedDrinks, drinksList);
+      drinksList.addEventListener("click", makeFavourites);
     });
 }
 //Creo una función que valga para pintar en una lista del HTML cada objeto de un array como un li.
@@ -38,6 +40,12 @@ function paintDrinks(list, listDOM) {
     html += `</li>`;
   }
   listDOM.innerHTML = html;
+}
+//Función manejadora del evento de escucha del click en un elemento de la lista:
+
+function makeFavourites(event) {
+  console.log("holis caracolis");
+  console.log(event.target);
 }
 //Eventos:
 
