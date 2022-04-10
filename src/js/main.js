@@ -4,6 +4,9 @@ const inputSearch = document.querySelector(".js-searchInput");
 const buttonSearch = document.querySelector(".js-button");
 const drinksList = document.querySelector(".js-drinkList");
 const urlApi = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=";
+
+//Función manejadora del evento 'click' en el botón de buscar bebidas.
+
 function handleClickSearch() {
   const inputValue = inputSearch.value;
   let allDrinks = [];
@@ -24,15 +27,18 @@ function handleClickSearch() {
       paintDrinks(wantedDrinks, drinksList);
     });
 }
+//Creo una función que valga para pintar en una lista del HTML cada objeto de un array como un li.
+
 function paintDrinks(list, listDOM) {
   let html = "";
   for (const li of list) {
     html += `<li class="drink js-drink" id=${li.id}>`;
-    html += `<h2 class= drink-title> ${li.name}</h2>`;
-    html += `<img src="${li.image}"/>`;
+    html += `<h2 class= "drink__title"> ${li.name}</h2>`;
+    html += `<img class= "drink__image" src="${li.image}"/>`;
     html += `</li>`;
   }
   listDOM.innerHTML = html;
 }
+//Eventos:
 
 buttonSearch.addEventListener("click", handleClickSearch);
