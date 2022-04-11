@@ -49,6 +49,7 @@ justify-content: space-around;
 }
 .article{
   &__title{
+    padding: 10px;
     text-align: center;
     font-size: 20px;
     color:$lightgreenblue;
@@ -64,10 +65,12 @@ justify-content: space-around;
 }
 .drink{
   width: 200px;
-  height:250px ;
+  height: 300px;
   border:solid 4px $greenblueclair;
   margin:5px;
   background-color: $aquamarine;
+  display:flex;
+  justify-content: center;
   &__title{
     text-align: center;
   }
@@ -81,6 +84,7 @@ position: relative;
 
   }
   &__image{
+    height:auto;
     display:flex;
     contain: content;
     width:200px;
@@ -92,6 +96,9 @@ position: relative;
     left: 10px;
     bottom: 10px;
     z-index: 10;
+    padding:5px;
+    border-radius: 10px;
+
   }
 }
 .Drink__favourite{
@@ -106,4 +113,7 @@ position: relative;
   font-size: 20px;
   color:$black;
   background-color:$lile;
+}
+.list{
+  list-style-type: none;
 }
