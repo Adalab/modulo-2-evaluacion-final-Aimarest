@@ -17,6 +17,10 @@ function handleClickSearch() {
   fetch(`https://${urlApi}${inputValue}`)
     .then((response) => response.json())
     .then((data) => {
+      if (data.drinks === null) {
+        drinksList.innerHTML = `<p class=error> Oups! No existen bebidas con tu búsqueda</p>`;
+        return;
+      }
       allDrinks = data.drinks;
       //Creo un array que contenga los objetos solo con las propiedades que necesito(nombre,imagen,id)
       const wantedDrinks = allDrinks.map((drink) => {
@@ -59,15 +63,7 @@ function handleClickSearch() {
     let html = "";
     for (const li of list) {
       let printedID = itsFavourite ? "" : "id=" + li.id;
-      const favouriteDrinkIndex = favourites.findIndex(
-        (fav) => fav.id === li.id
-      );
-      if (favouriteDrinkIndex === -1) {
-        //Busco a ver si está en el listado de favoritas, como no está, le quito la clase.
-        classFavorite = "";
-      } else {
-        classFavorite = "Drink__favourite";
-      }
+      const classFavorite = itsFavourite ? "Drink__favourite" : "";
 
       html += `<li class="drink js-drink ${classFavorite}" ${printedID}>`;
       html += `<div class="drink__container">`;
@@ -79,19 +75,20 @@ function handleClickSearch() {
     listDOM.innerHTML = html;
   }
 }
+// Obtengo lo que hay en el LS
+const coctelStorage = JSON.parse(localStorage.getItem("favourites"));
+localStorage.setItem("favourites", JSON.stringify(listOfFavourites));
+
 function resetFilter(event) {
   event.preventDefault();
   drinksList.innerHTML = "";
   inputSearch.value = "";
   listOfFavourites.innerHTML = "";
   favourites = [];
+  window.localStorage.clear();
 }
 
 //Eventos:
 
 buttonSearch.addEventListener("click", handleClickSearch);
 resetButton.addEventListener("click", resetFilter);
-
-// Obtengo lo que hay en el LS
-const coctelStorage = JSON.parse(localStorage.getItem("favourites"));
-localStorage.setItem("favourites", JSON.stringify(listOfFavourites));
