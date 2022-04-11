@@ -2,6 +2,7 @@
 "use strict";
 const inputSearch = document.querySelector(".js-searchInput");
 const buttonSearch = document.querySelector(".js-button");
+const resetButton = document.querySelector(".js-reset");
 const drinksList = document.querySelector(".js-drinkList");
 const urlApi = "www.thecocktaildb.com/api/json/v1/1/search.php?s=";
 const listOfFavourites = document.querySelector(".js-favourites");
@@ -27,6 +28,7 @@ function handleClickSearch() {
       paintDrinks(wantedDrinks, drinksList);
       // la variable drink contiene el objeto javascript con la informacion para pintar
       for (const drink of wantedDrinks) {
+        let classFavorite = "";
         // currentDrink contiene el li al que quiero agregar el evento click
         const currentDrink = document.getElementById(drink.id);
         currentDrink.addEventListener("click", function () {
@@ -37,12 +39,15 @@ function handleClickSearch() {
           if (favouriteDrinkIndex === -1) {
             //Devuelve -1 porque no lo encontró en el listado, por lo que hago el push para añadirlo.
             favourites.push(drink);
+            classFavorite = "Drink__favourite";
           } else {
             favourites.splice(favouriteDrinkIndex, 1); //Busco la posición de la bebida, y lo elimino.
+            classFavorite = "";
           }
           paintDrinks(favourites, listOfFavourites);
         });
       }
+      localStorage.setItem("favourites", JSON.stringify(listOfFavourites));
     });
   //Creo una función que valga para pintar en una lista del HTML cada objeto de un array como un li.
   function paintDrinks(list, listDOM) {
@@ -58,6 +63,16 @@ function handleClickSearch() {
     listDOM.innerHTML = html;
   }
 }
+function resetFilter(event) {
+  event.preventDefault();
+  drinksList.innerHTML = "";
+  inputSearch.value = "";
+}
+
 //Eventos:
 
 buttonSearch.addEventListener("click", handleClickSearch);
+resetButton.addEventListener("click", resetFilter);
+
+// obtenermos lo que hay en el LS
+const coctelStorage = JSON.parse(localStorage.getItem("favourites"));
