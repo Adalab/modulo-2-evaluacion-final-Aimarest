@@ -61,6 +61,7 @@ function handleClickSearch() {
   //Creo una función que valga para pintar en una lista del HTML cada objeto de un array como un li.
   function paintDrinks(list, listDOM, itsFavourite) {
     let html = "";
+    let index = 0;
     for (const li of list) {
       let printedID = itsFavourite ? "" : "id=" + li.id;
       const classFavorite = itsFavourite ? "Drink__favourite" : "";
@@ -68,11 +69,29 @@ function handleClickSearch() {
       html += `<li class="drink js-drink ${classFavorite}" ${printedID}>`;
       html += `<div class="drink__container">`;
       html += `<h2 class= "drink__title"> ${li.name}</h2>`;
+      if (itsFavourite) {
+        html += `<button class= "drink__action" id="fav-${index}"> Eliminar </button>`;
+      }
       html += `<img class= "drink__image" src="${li.image}"/>`;
       html += `</div>`;
       html += `</li>`;
+      index++;
     }
     listDOM.innerHTML = html;
+    if (itsFavourite) {
+      for (let i = 0; i < index; i++) {
+        // agregamos el evento click a cada botón por el id creado
+        document.getElementById("fav-" + i).addEventListener("click", () => {
+          // Al eliminar un elemento, splice me devuelve los elementos eliminados, sólo 1 en este caso, por eso accedemos a la posición 0
+          const currentDrinkRemove = favourites.splice(i, 1);
+          // Buscamos el elemento por su id y repintamos la lista de favoritos
+          document
+            .getElementById(currentDrinkRemove[0].id)
+            .classList.remove("Drink__favourite");
+          paintDrinks(favourites, listOfFavourites, true);
+        });
+      }
+    }
   }
 }
 // Obtengo lo que hay en el LS
