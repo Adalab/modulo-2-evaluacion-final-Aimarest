@@ -9,7 +9,7 @@ const header = document.querySelector(".js-title");
 const listOfFavourites = document.querySelector(".js-favourites");
 let favourites = [];
 let classFavorite = "";
-
+getInitialFavouriteList();
 //Función manejadora del evento 'click' en el botón de buscar bebidas.
 
 function handleClickSearch() {
@@ -52,15 +52,20 @@ function handleClickSearch() {
             currentDrink.classList.remove("Drink__favourite");
           }
           paintDrinks(favourites, listOfFavourites, true);
+          localStorage.setItem("favourites", JSON.stringify(favourites));
         });
       }
-      localStorage.setItem("favourites", JSON.stringify(listOfFavourites));
+
       paintDrinks(favourites, listOfFavourites, true);
     });
 }
 // obtenermos lo que hay en el LS
-function addlocalStorage(listOfFavourites) {
-  localStorage.setItem("favourites", JSON.stringify(listOfFavourites));
+function getInitialFavouriteList() {
+  const ListaFavorita = JSON.parse(localStorage.getItem("favourites"));
+  if (ListaFavorita !== null) {
+    favourites = ListaFavorita; //guardo lo que tenía en mi lista de favoritos en mi variable favoritos
+    paintDrinks(favourites, listOfFavourites, true);
+  }
 }
 //Creo una función que valga para pintar en una lista del HTML cada objeto de un array como un li.
 function paintDrinks(list, listDOM, itsFavourite) {
@@ -97,9 +102,6 @@ function paintDrinks(list, listDOM, itsFavourite) {
     }
   }
 }
-// Obtengo lo que hay en el LS
-const coctelStorage = JSON.parse(localStorage.getItem("favourites"));
-localStorage.setItem("favourites", JSON.stringify(listOfFavourites));
 
 function resetFilter(event) {
   event.preventDefault();
