@@ -47,8 +47,21 @@ function handleClickSearch() {
           paintDrinks(favourites, listOfFavourites);
         });
       }
-      localStorage.setItem("favourites", JSON.stringify(listOfFavourites));
+      addlocalStorage(listOfFavourites);
     });
+  // obtenermos lo que hay en el LS
+  function addlocalStorage(listOfFavourites) {
+    localStorage.setItem("favourites", JSON.stringify(listOfFavourites));
+  }
+  function getFavourites() {
+    let favouriteList = localStorage.getItem("listOfFavourites");
+    if (favouriteList == null) {
+      listOfFavourites = [];
+    } else {
+      listOfFavourites = JSON.parse(favouriteList);
+    }
+    paintDrinks(favourites, listOfFavourites);
+  }
   //Creo una función que valga para pintar en una lista del HTML cada objeto de un array como un li.
   function paintDrinks(list, listDOM) {
     let html = "";
@@ -73,6 +86,3 @@ function resetFilter(event) {
 
 buttonSearch.addEventListener("click", handleClickSearch);
 resetButton.addEventListener("click", resetFilter);
-
-// obtenermos lo que hay en el LS
-const coctelStorage = JSON.parse(localStorage.getItem("favourites"));
