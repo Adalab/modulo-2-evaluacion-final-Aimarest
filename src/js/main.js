@@ -9,8 +9,8 @@ const header = document.querySelector(".js-title");
 const listOfFavourites = document.querySelector(".js-favourites");
 let favourites = [];
 let classFavorite = "";
+const buttonNumFav = document.querySelector(".js-numFav");
 //Función manejadora del evento 'click' en el botón de buscar bebidas.
-
 function handleClickSearch() {
   const inputValue = inputSearch.value;
   let allDrinks = [];
@@ -28,6 +28,10 @@ function handleClickSearch() {
           name: drink.strDrink,
           id: drink.idDrink,
           image: drink.strDrinkThumb,
+          ingredient1: drink.strIngredient1,
+          ingredient2: drink.strIngredient2,
+          ingredient3: drink.strIngredient3,
+          ingredient4: drink.strIngredient4,
         };
         return wDrinks;
       });
@@ -47,7 +51,7 @@ function handleClickSearch() {
             currentDrink.classList.add("Drink__favourite");
           } else {
             //Busco la posición de la bebida, y lo elimino.
-            favourites.splice(favouriteDrinkIndex, 1);
+            fav(ourites.splice(favouriteDrinkIndex, 1);
             currentDrink.classList.remove("Drink__favourite");
           }
           paintDrinks(favourites, listOfFavourites, true);
@@ -73,6 +77,12 @@ function handleClickSearch() {
         html += `<button class= "drink__action" id="fav-${index}"> Eliminar </button>`;
       }
       html += `<img class= "drink__image" src="${li.image}"/>`;
+      if (itsFavourite === false) {
+        html += `<p> Ingredientes: ${li.ingredient1} ${li.ingredient2} ${li.ingredient3}</p>`;
+        if (li.ingredient4 !== null) {
+          html += `<p> ${li.ingredient4}`;
+        }
+      }
       html += `</div>`;
       html += `</li>`;
       index++;
@@ -106,8 +116,12 @@ function resetFilter(event) {
   favourites = [];
   window.localStorage.clear();
 }
-
+function paintNumFav(event) {
+  event.preventDefault();
+  console.log(favourites.length);
+}
 //Eventos:
 
 buttonSearch.addEventListener("click", handleClickSearch);
 resetButton.addEventListener("click", resetFilter);
+buttonNumFav.addEventListener("click", paintNumFav);
