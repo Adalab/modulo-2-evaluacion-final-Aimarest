@@ -8,33 +8,10 @@
     <link rel="stylesheet" href="./assets/css/main.css" />
   </head>
   <body>
-    <header class="title">
-      <h1 class="js-title">Buscador de cócteles</h1>
-    </header>
+    <include src="./partials/header.html"></include>
     <main>
-      <form class="search js-form">
-        <label class="search__button js-button" for="drinkFilter"
-          >Buscar cócteles</label
-        >
-        <button class="search__reset js-reset">Reset</button>
-        <input
-          type="text"
-          required
-          class="search__input js-searchInput"
-          id="drinkFilter"
-          placeholder="Introduce aquí la bebida que quieres buscar"
-        />
-      </form>
-      <section class="section">
-        <article class="article first">
-          <h2 class="article__title">Cócteles Favoritos</h2>
-          <ul class="article__favourites js-favourites"></ul>
-        </article>
-        <article class="article second">
-          <h2 class="article__title">Cócteles disponibles</h2>
-          <ul class="article__list js-drinkList"></ul>
-        </article>
-      </section>
+      <include src="./partials/form.html"></include>
+      <include src="./partials/section.html"></include>
     </main>
     <script src="./assets/js/main.js"></script>
   </body>
