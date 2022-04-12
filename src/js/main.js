@@ -9,6 +9,7 @@ const header = document.querySelector(".js-title");
 const listOfFavourites = document.querySelector(".js-favourites");
 let favourites = [];
 let classFavorite = "";
+getInitialFavouriteList();
 //Función manejadora del evento 'click' en el botón de buscar bebidas.
 
 function handleClickSearch() {
@@ -94,10 +95,15 @@ function handleClickSearch() {
     }
   }
 }
-// Obtengo lo que hay en el LS
-const coctelStorage = JSON.parse(localStorage.getItem("favourites"));
-localStorage.setItem("favourites", JSON.stringify(listOfFavourites));
 
+// obtenermos lo que hay en el LS
+function getInitialFavouriteList() {
+  const ListaFavorita = JSON.parse(localStorage.getItem("favourites"));
+  if (ListaFavorita !== null) {
+    favourites = ListaFavorita; //guardo lo que tenía en mi lista de favoritos en mi variable favoritos
+    paintDrinks(favourites, listOfFavourites, true);
+  }
+}
 function resetFilter(event) {
   event.preventDefault();
   drinksList.innerHTML = "";
